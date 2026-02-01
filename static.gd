@@ -1,5 +1,8 @@
 class_name Multrapool_Cue
 
+static var MOD_NAME := "Multrapool-Cue" 
+static var CUE_VERSION := "0.1.1 Green"
+
 static var virtual_files:Array = []
 
 static var global_thingy_bc_godot_is_silly: Array = []

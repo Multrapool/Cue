@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://drswh4e44j67w"]
+
+[ext_resource type="Theme" uid="uid://bsxnoxdje2poy" path="res://ui/pool_theme.tres" id="1_ujkob"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_26v6w"]
+font_size = 24
+font_color = Color(0.903598, 0.903598, 0.903598, 1)
+outline_size = 1
+shadow_color = Color(0, 0, 0, 0.392157)
+shadow_offset = Vector2(0, 2)
+
+[node name="VersionNumber" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="LabelT" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -26.0
+offset_right = -9.0
+offset_bottom = -1.5
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("1_ujkob")
+text = "Version"
+label_settings = SubResource("LabelSettings_26v6w")

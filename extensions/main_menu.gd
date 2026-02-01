@@ -24,3 +24,13 @@ func spawn_ball():
         balls.append(ball)
     else:
         super()
+
+func _ready() -> void :
+    super()
+    
+    $CanvasLayer.visible = true
+    $CanvasLayer/ExitButton.visible = false # remove this on mobile
+    $CanvasLayer.add_child(preload("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
+        .instantiate())
+    $CanvasLayer/VersionNumber/LabelT.text = "Multraball Version " + \
+        preload("res://mods-unpacked/Multrapool-Cue/static.gd").CUE_VERSION
