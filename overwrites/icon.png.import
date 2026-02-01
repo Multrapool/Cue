@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jqfl53ya1vmx"
-path.s3tc="res://.godot/imported/icon.png-edd7a174de2ebf7c3403188e527f61da.s3tc.ctex"
-path.etc2="res://.godot/imported/icon.png-edd7a174de2ebf7c3403188e527f61da.etc2.ctex"
+uid="uid://dn77jkomwe7os"
+path.s3tc="res://.godot/imported/icon.png-d9f545a183b154a88169bb9cda399eaa.s3tc.ctex"
+path.etc2="res://.godot/imported/icon.png-d9f545a183b154a88169bb9cda399eaa.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://mods-unpacked/Multraball-Cue/overwrites/icon.png"
-dest_files=["res://.godot/imported/icon.png-edd7a174de2ebf7c3403188e527f61da.s3tc.ctex", "res://.godot/imported/icon.png-edd7a174de2ebf7c3403188e527f61da.etc2.ctex"]
+source_file="res://mods-unpacked/Multrapool-Cue/overwrites/icon.png"
+dest_files=["res://.godot/imported/icon.png-d9f545a183b154a88169bb9cda399eaa.s3tc.ctex", "res://.godot/imported/icon.png-d9f545a183b154a88169bb9cda399eaa.etc2.ctex"]
 
 [params]
 

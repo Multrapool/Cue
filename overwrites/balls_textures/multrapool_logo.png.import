@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnbm3d36lf7sg"
-path.s3tc="res://.godot/imported/multrapool_logo.png-ca8c0ee881a203f4443313532d6b3e98.s3tc.ctex"
-path.etc2="res://.godot/imported/multrapool_logo.png-ca8c0ee881a203f4443313532d6b3e98.etc2.ctex"
+uid="uid://c7xdp78iquanf"
+path.s3tc="res://.godot/imported/multrapool_logo.png-6ba42c0b6a03014f8a77158cb946ab38.s3tc.ctex"
+path.etc2="res://.godot/imported/multrapool_logo.png-6ba42c0b6a03014f8a77158cb946ab38.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://mods-unpacked/Multraball-Cue/overwrites/balls_textures/multrapool_logo.png"
-dest_files=["res://.godot/imported/multrapool_logo.png-ca8c0ee881a203f4443313532d6b3e98.s3tc.ctex", "res://.godot/imported/multrapool_logo.png-ca8c0ee881a203f4443313532d6b3e98.etc2.ctex"]
+source_file="res://mods-unpacked/Multrapool-Cue/overwrites/balls_textures/multrapool_logo.png"
+dest_files=["res://.godot/imported/multrapool_logo.png-6ba42c0b6a03014f8a77158cb946ab38.s3tc.ctex", "res://.godot/imported/multrapool_logo.png-6ba42c0b6a03014f8a77158cb946ab38.etc2.ctex"]
 
 [params]
 
