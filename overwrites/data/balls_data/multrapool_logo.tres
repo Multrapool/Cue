@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BallResource" format=3 uid="uid://dck66kvf6imvd"]
+
+[ext_resource type="Script" uid="uid://o6qmjv6l6c2j" path="res://data/balls_data/ball_resource.gd" id="1_7enrx"]
+[ext_resource type="Texture2D" uid="uid://dpa5fouidg26a" path="res://mods-unpacked/kyfex-Multrapool/overwrites/balls_textures/multrapool_logo.png" id="2_rhwgk"]
+
+[resource]
+script = ExtResource("1_7enrx")
+health = -1
+name = "BALL_MULTRAPOOL_LOGO_NAME"
+texture = ExtResource("2_rhwgk")
+rarity = 3
+base_score = 0
+upgradeable = false
+id = "MULTRAPOOL_LOGO"
+main_color = Color(0.5529412, 0.8352941, 0.87058824, 1)
+metadata/_custom_type_script = "uid://o6qmjv6l6c2j"
