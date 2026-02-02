@@ -1,12 +1,13 @@
 [gd_resource type="Resource" script_class="BallResource" load_steps=3 format=3 uid="uid://dck66kvf6imvd"]
 
 [ext_resource type="Script" uid="uid://o6qmjv6l6c2j" path="res://data/balls_data/ball_resource.gd" id="1_7enrx"]
-[ext_resource type="Texture2D" uid="uid://bhu8qborhbs4d" path="res://mods-unpacked/Multrapool-Cue/overwrites/balls_textures/multrapool_logo.png" id="2_47u0y"]
+[ext_resource type="Texture2D" uid="uid://c7xdp78iquanf" path="res://mods-unpacked/Multrapool-Cue/overwrites/balls_textures/multrapool_logo.png" id="2_47u0y"]
 
 [resource]
 script = ExtResource("1_7enrx")
 health = -1
 name = "BALL_MULTRAPOOL_LOGO_NAME"
+description = "BALL_MULTRAPOOL_LOGO_DESC"
 texture = ExtResource("2_47u0y")
 rarity = 3
 base_score = 0

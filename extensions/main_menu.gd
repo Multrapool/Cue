@@ -3,7 +3,7 @@ extends "res://main_menu.gd"
 func spawn_ball():
     if not balls.any(func(ball): return ball.has_id("MULTRAPOOL_LOGO")):
         var pos = (top_left.global_position + bottom_right.global_position) / 2\
-            + Vector2(0, 35)
+            + Vector2(-3.5, 33)
         var ball = ball_scene.instantiate()
         add_child(ball)
 
@@ -28,9 +28,10 @@ func spawn_ball():
 func _ready() -> void :
     super()
     
-    $CanvasLayer.visible = true
-    $CanvasLayer/ExitButton.visible = false # remove this on mobile
+    if not Global.is_mobile(): # this already happens on mobile
+        $CanvasLayer.visible = true
+        $CanvasLayer/ExitButton.visible = false
     $CanvasLayer.add_child(preload("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
         .instantiate())
-    $CanvasLayer/VersionNumber/LabelT.text = "Multraball Version " + \
-        preload("res://mods-unpacked/Multrapool-Cue/static.gd").CUE_VERSION
+    $CanvasLayer/VersionNumber/LabelT.text = "Cue Version " + \
+        preload("res://mods-unpacked/Multrapool-Cue/cue.gd").CUE_VERSION
