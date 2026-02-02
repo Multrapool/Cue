@@ -1,14 +1,14 @@
 extends Node
 
-const CUE = preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
-
 var mod_dir_path := ""
 var extensions_dir_path := ""
+
+var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _init() -> void:
     mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(CUE.MOD_NAME)
     extensions_dir_path = mod_dir_path.path_join("extensions")
-
+    
     # Add extensions
     install_script_extensions()
     install_script_hook_files()

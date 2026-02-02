@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://baal2egomn0oi"]
+
+[ext_resource type="Script" uid="uid://covtlkyowc4g1" path="res://mods-unpacked/Multrapool-Cue/cue.gd" id="1_s6i2l"]
+
+[node name="Cue" type="Node"]
+script = ExtResource("1_s6i2l")
