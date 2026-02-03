@@ -13,7 +13,7 @@
 				"7.0.0"
             ],
             "config_schema": {
-
+                
             },
             "description_rich": "",
             "image": null,
@@ -25,6 +25,6 @@
     },
     "name": "Cue",
     "namespace": "Multrapool",
-    "version_number": "0.2.0",
+    "version_number": "0.2.1",
     "website_url": "https://github.com/Multrapool/Cue"
 }

@@ -4,8 +4,9 @@ func Multrapool_Cue_InitMainMenu(scene:Node):
     var canvas = scene.get_node("CanvasLayer")
     var version_number = preload("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
         .instantiate()
+    var CUE = preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
     version_number.get_node("LabelT").text = "Cue Version " + \
-        preload("res://mods-unpacked/Multrapool-Cue/cue.gd").CUE_VERSION
+        CUE.CUE_VERSION+" "+CUE.CUE_ERA
     
     if not Global.is_mobile(): # this already happens on mobile
         canvas.visible = true

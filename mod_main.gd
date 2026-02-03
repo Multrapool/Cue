@@ -5,6 +5,7 @@ var mod_dir_path := ""
 var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _init() -> void:
+    CUE.CUE_VERSION = ModLoaderMod.get_mod_data(CUE.MOD_NAME).manifest.version_number
     mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(CUE.MOD_NAME)
     
     # Add extensions

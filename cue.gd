@@ -1,7 +1,8 @@
 class_name Multrapool_Cue
 
 static var MOD_NAME := "Multrapool-Cue" 
-static var CUE_VERSION := "0.2.0 Triangle"
+static var CUE_VERSION := ""
+static var CUE_ERA := "Triangle"
 
 static var virtual_files:Array = []
 
