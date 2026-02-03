@@ -2,7 +2,7 @@ extends Node
 
 var mod_dir_path := ""
 
-var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
+var CUE := load("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _init() -> void:
     CUE.CUE_VERSION = ModLoaderMod.get_mod_data(CUE.MOD_NAME).manifest.version_number

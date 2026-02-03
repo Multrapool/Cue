@@ -1,6 +1,6 @@
 extends "res://gallery.gd"
 
-var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
+var CUE := load("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _ready() -> void :
     super()
