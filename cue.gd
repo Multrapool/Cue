@@ -41,7 +41,7 @@ class eventHolder:
     const TRANSFORM_SELF = "TRANSFORM"
     const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
     
-    const REROLL = "MULTRABALL_CUE_REROLL"
+    const REROLL = "MULTRAPOOL_CUE_REROLL"
 static var Events = eventHolder.new()
 
 static var registeredEvents = {}

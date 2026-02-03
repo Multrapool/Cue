@@ -1,13 +1,11 @@
 extends Node
 
 var mod_dir_path := ""
-var extensions_dir_path := ""
 
 var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _init() -> void:
     mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(CUE.MOD_NAME)
-    extensions_dir_path = mod_dir_path.path_join("extensions")
     
     # Add extensions
     install_script_extensions()
@@ -18,10 +16,11 @@ func _init() -> void:
     
     ModLoaderMod.add_translation(mod_dir_path.path_join("Multrapool.en.translation"))
     
-    ModLoaderLog.info("Init", CUE.MOD_NAME)
+    ModLoaderLog.info("Initialized :3", CUE.MOD_NAME)
 
 func install_script_extensions() -> void:
-    ModLoaderMod.install_script_extension(extensions_dir_path + "/main_menu.gd")
+    var extensions_dir_path = mod_dir_path.path_join("extensions")
+    ModLoaderMod.install_script_extension(extensions_dir_path + "/Global.gd")
 
 func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")

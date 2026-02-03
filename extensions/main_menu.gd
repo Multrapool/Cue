@@ -1,5 +1,15 @@
 extends "res://main_menu.gd"
 
+func Multrapool_Cue_InheritVariables(old_vars:Dictionary):
+    ball_scene=old_vars.ball_scene
+    play_button=old_vars.play_button
+    top_left=old_vars.top_left
+    bottom_right=old_vars.bottom_right
+    pass
+
+func _init():
+    super()
+
 func spawn_ball():
     if not balls.any(func(ball): return ball.has_id("MULTRAPOOL_LOGO")):
         var pos = (top_left.global_position + bottom_right.global_position) / 2\
@@ -24,14 +34,3 @@ func spawn_ball():
         balls.append(ball)
     else:
         super()
-
-func _ready() -> void :
-    super()
-    
-    if not Global.is_mobile(): # this already happens on mobile
-        $CanvasLayer.visible = true
-        $CanvasLayer/ExitButton.visible = false
-    $CanvasLayer.add_child(preload("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
-        .instantiate())
-    $CanvasLayer/VersionNumber/LabelT.text = "Cue Version " + \
-        preload("res://mods-unpacked/Multrapool-Cue/cue.gd").CUE_VERSION
