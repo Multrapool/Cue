@@ -4,6 +4,9 @@ static var MOD_NAME := "Multrapool-Cue"
 static var CUE_VERSION := ""
 static var CUE_ERA := "Triangle"
 
+### libs
+
+
 static var GALLERY
 static func _create_singletons(holder:Node):
     var sub_holder:Node = load("res://mods-unpacked/Multrapool-Cue/libs/lib_holder.tscn")\
@@ -11,6 +14,9 @@ static func _create_singletons(holder:Node):
     holder.add_child(sub_holder)
     
     GALLERY=sub_holder.get_node("Multrapool_LibGallery")
+    
+### take over
+
 
 static var virtual_files:Array = []
 
@@ -24,6 +30,9 @@ static func take_over(modName:String, path:String):
     to_take_over.take_over_path("res://"+path)
     virtual_files.append("res://"+path)
     global_thingy_bc_godot_is_silly.append(to_take_over)
+    
+### events
+
 
 class ballEventHolder:  
     const BUFF = "BUFF"
@@ -139,3 +148,22 @@ static func call_event(event:String, additional:Dictionary):
         for callback in registeredEvents[event]:
             callback.call(additional)
             
+### custom droplets
+
+
+static var last_used_droplet = load("res://droplet.gd").DROPLET_TYPE.size()-1
+static var droplet_data := {}
+static func register_droplet(init:Callable, 
+        on_ball:Callable, 
+        process:Callable, 
+        remove:Callable) -> int:
+    last_used_droplet+=1
+    
+    droplet_data[last_used_droplet] = {
+        init=init,
+        on_ball=on_ball,
+        process=process,
+        remove=remove
+    }
+    
+    return last_used_droplet
