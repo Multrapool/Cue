@@ -17,6 +17,8 @@ func _init() -> void:
     
     ModLoaderMod.add_translation(mod_dir_path.path_join("Multrapool.en.translation"))
     
+    CUE._create_singletons(self)
+    
     ModLoaderLog.info("Initialized :3", CUE.MOD_NAME)
 
 func install_script_extensions() -> void:

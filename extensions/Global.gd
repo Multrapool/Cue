@@ -1,5 +1,11 @@
 extends "res://Global.gd"
 
+
+func _ready() -> void:
+    super()
+    Multrapool_Cue_InitMainMenu(get_node("/root/MainMenu"))
+    
+
 func Multrapool_Cue_InitMainMenu(scene:Node):
     var canvas = scene.get_node("CanvasLayer")
     var version_number = load("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
@@ -14,22 +20,25 @@ func Multrapool_Cue_InitMainMenu(scene:Node):
     
     canvas.add_child(version_number)
     
-    var old_vars := {
+    var old = {
         ball_scene=scene.ball_scene,
         play_button=scene.play_button,
         top_left=scene.top_left,
         bottom_right=scene.bottom_right,
     }
     scene.set_script(load("res://mods-unpacked/Multrapool-Cue/extensions/main_menu.gd"))
-    scene.Multrapool_Cue_InheritVariables(old_vars)
+    scene.Multrapool_Cue_InheritVariables(old)
     
-func _ready() -> void:
-    super()
-    Multrapool_Cue_InitMainMenu(get_node("/root/MainMenu"))
+func Multrapool_Cue_InitGallery(scene:Node):
+    scene.set_script(load("res://mods-unpacked/Multrapool-Cue/extensions/gallery.gd"))
+    
     
 func go_to_main_menu():
-    super() # get_tree().change_scene_to_packed(SCENE_GAME)
+    super()
     get_node("/root/").child_entered_tree.connect(
         Multrapool_Cue_InitMainMenu, CONNECT_ONE_SHOT)
-        
+    
+func go_to_gallery():
     super()
+    get_node("/root/").child_entered_tree.connect(
+        Multrapool_Cue_InitGallery, CONNECT_ONE_SHOT)

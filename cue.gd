@@ -4,6 +4,14 @@ static var MOD_NAME := "Multrapool-Cue"
 static var CUE_VERSION := ""
 static var CUE_ERA := "Triangle"
 
+static var GALLERY:Multrapool_LibGallery
+static func _create_singletons(holder:Node):
+    var sub_holder:Node = load("res://mods-unpacked/Multrapool-Cue/libs/lib_holder.tscn")\
+        .instantiate()
+    holder.add_child(sub_holder)
+    
+    GALLERY=sub_holder.get_node("Multrapool_LibGallery")
+
 static var virtual_files:Array = []
 
 static var global_thingy_bc_godot_is_silly: Array = []

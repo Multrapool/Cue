@@ -5,10 +5,6 @@ func Multrapool_Cue_InheritVariables(old_vars:Dictionary):
     play_button=old_vars.play_button
     top_left=old_vars.top_left
     bottom_right=old_vars.bottom_right
-    pass
-
-func _init():
-    super()
 
 func spawn_ball():
     if not balls.any(func(ball): return ball.has_id("MULTRAPOOL_LOGO")):
