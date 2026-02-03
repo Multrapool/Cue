@@ -13,7 +13,6 @@ func _init() -> void:
     install_script_hook_files()
     
     CUE.take_over(CUE.MOD_NAME, "data/balls_data/multrapool_logo.tres")
-    CUE.take_over(CUE.MOD_NAME, "icon.png")
     
     ModLoaderMod.add_translation(mod_dir_path.path_join("Multrapool.en.translation"))
     
@@ -28,6 +27,7 @@ func install_script_extensions() -> void:
 func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
+    ModLoaderMod.add_hook(play_new_round_hook, "res://Game.gd", "play_new_round")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", 
         "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
 
@@ -51,3 +51,8 @@ func on_reroll_hook(chain: ModLoaderHookChain) -> void:
     chain.execute_next([])
     if old_rerolled+1 == Global.shopManager.times_rerolled:
         Global.eventManager.run_event_shop(CUE.Events.REROLL) 
+
+func play_new_round_hook(chain: ModLoaderHookChain):
+    await chain.execute_next_async([])
+    for callback in CUE.MISC_EVENTS.ROUND_START_CALLBACKS:
+        callback.call()
