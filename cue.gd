@@ -5,14 +5,12 @@ static var CUE_VERSION := ""
 static var CUE_ERA := "Triangle"
 
 static var GALLERY
-static var EVENTS
 static func _create_singletons(holder:Node):
     var sub_holder:Node = load("res://mods-unpacked/Multrapool-Cue/libs/lib_holder.tscn")\
         .instantiate()
     holder.add_child(sub_holder)
     
     GALLERY=sub_holder.get_node("Multrapool_LibGallery")
-    EVENTS=sub_holder.get_node("Multrapool_LibMiscEvents")
 
 static var virtual_files:Array = []
 
@@ -27,7 +25,7 @@ static func take_over(modName:String, path:String):
     virtual_files.append("res://"+path)
     global_thingy_bc_godot_is_silly.append(to_take_over)
 
-class eventHolder:    
+class ballEventHolder:  
     const BUFF = "BUFF"
     const BUY_ANY = "BUY-OTHER"
     const ENTER_SHOP = "ENTER-SHOP"
@@ -40,9 +38,9 @@ class eventHolder:
     const REACH_SCORE = "REACH-SCORE"
     const ROUND_END = "ROUND-END"
     const ROUND_START = "ROUND-START"
-    const SCORE_ANY = "SCORE"
-    const SCORE_CHANGE = "SCORE-CHANGE"
-    const SCORE_SELF = "SCORE-SELF"
+    const GAIN_SCORE = "SCORE"
+    const SELF_UPGRADE = "SCORE-CHANGE"
+    const SELF_SCORED = "SCORE-SELF"
     const SELL_ANY = "SELL"
     const SELL_SELF = "SELL-SELF"
     const SHOOT = "SHOOT"
@@ -53,39 +51,63 @@ class eventHolder:
     const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
     
     const REROLL = "MULTRAPOOL_CUE_REROLL"
+    const SPAWN_DROPLET = "MULTRAPOOL_SPAWN_DROPLET"
+class eventHolder:
+    const BUFF = "BUFF"
+    const BUY_BALL = "BUY_OTHER"
+    const ENTER_SHOP = "ENTER_SHOP"
+    const GAIN_MONEY = "GAIN_MONEY"
+    const HIT_BALL = "HIT_BAll"
+    const HIT_WALL = "HIT_WALL"
+    const PICKUP_DROPLET = "PICKUP_DROPLET"
+    const POCKET_BALL="POCKET_BALL"
+    const REACH_SCORE = "REACH_SCORE"
+    const ROUND_END = "ROUND_END"
+    const ROUND_START = "ROUND_START"
+    const GAIN_SCORE = "GAIN_SCORE"
+    const BALL_UPGRADE = "BALL_UPGRADE"
+    const SELL_BALL = "SELL"
+    const SHOOT = "SHOOT"
+    const SPAWN_BALL = "SPAWN_BALL"
+    const TRANSFORM_BALL = "TRANSFORM-ANOTHER"
+    const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
+    
+    const REROLL = "REROLL"
+    const SPAWN_DROPLET = "SPAWN_DROPLET"
+static var BallEvents = ballEventHolder.new()
 static var Events = eventHolder.new()
 
-static var registeredEvents = {}
-## Registers a callback to be run on some event[br][br]
+static var registeredBallEvents = {}
+## Registers a callback to be run on some ball event[br][br]
 ##
 ## [param ball_id]: The id of the type of ball that should run this action[br]
-## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)[br]
+## [param event]: A member of [ballEventHolder] (or a string, if you're using a custom event)[br]
 ## [param action]: A function that takes a [Ball], a dictionary of assorted values, and if it is the mixed side, and performs the event action[br]
 ## [param action] = func(ball:Ball, assorted:Dictionary, isMixedSide:bool)
 static func register_ball_event(ball_id:String, event:String, action:Callable):
-    if !registeredEvents.has(event):
-        registeredEvents[event] = {}
-    registeredEvents[event][ball_id] = action
+    if !registeredBallEvents.has(event):
+        registeredBallEvents[event] = {}
+    registeredBallEvents[event][ball_id] = action
     
 ## Gets the event for a ball[br][br]
 ##
 ## [param ball_id]: The id of the type of ball[br]
-## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)
+## [param event]: A member of [ballEventHolder] (or a string, if you're using a custom event)
 ## Returns the action that this ball will run, or null
 static func get_ball_event(ball_id:String, event:String) -> Callable:
-    if registeredEvents.has(event) and registeredEvents[event].has(ball_id):
-        return registeredEvents[event][ball_id]
+    if registeredBallEvents.has(event) and registeredBallEvents[event].has(ball_id):
+        return registeredBallEvents[event][ball_id]
     return func(_a,_b,_c):return
     
     
 ## Checks if there is an event for a ball[br][br]
 ##
 ## [param ball_id]: The id of the type of ball[br]
-## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)
+## [param event]: A member of [ballEventHolder] (or a string, if you're using a custom event)
 static func has_ball_event(ball_id:String, event:String) -> bool:
-    if registeredEvents[event] == null:
+    if registeredBallEvents[event] == null:
         return false
-    return registeredEvents[event][ball_id] != null
+    return registeredBallEvents[event][ball_id] != null
     
 static func call_ball_event(ball, event:String, additional:Dictionary):
     var real_ball_item
@@ -99,3 +121,21 @@ static func call_ball_event(ball, event:String, additional:Dictionary):
     get_ball_event(real_ball_item.data.id, event).call(ball, additional, false)
     if real_ball_item.is_mixed():
         get_ball_event(real_ball_item.mixed_data.id, event).call(ball, additional, true)
+
+
+static var registeredEvents = {}
+## Registers a callback to be run on some event[br][br]
+##
+## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)[br]
+## [param action]: A function that takes a dictionary of assorted values and performs the event action[br]
+## [param action] = func(assorted:Dictionary)
+static func register_event(event:String, action:Callable):
+    if !registeredEvents.has(event):
+        registeredEvents[event] = []
+    registeredEvents[event].append(action)
+    
+static func call_event(event:String, additional:Dictionary):
+    if registeredEvents.has(event):
+        for callback in registeredEvents[event]:
+            callback.call(additional)
+            

@@ -28,8 +28,8 @@ func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
     ModLoaderMod.add_hook(play_new_round_hook, "res://Game.gd", "play_new_round")
-    ModLoaderMod.install_script_hooks("res://event_manager.gd", 
-        "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
+    ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
+    ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
 
 func _ready() -> void:
     ModLoaderLog.info("Ready", CUE.MOD_NAME)
@@ -50,9 +50,9 @@ func on_reroll_hook(chain: ModLoaderHookChain) -> void:
     var old_rerolled = Global.shopManager.times_rerolled
     chain.execute_next([])
     if old_rerolled+1 == Global.shopManager.times_rerolled:
-        Global.eventManager.run_event_shop(CUE.Events.REROLL) 
+        Global.eventManager.run_event_shop(CUE.BallEvents.REROLL) 
+        CUE.call_event(CUE.Events.REROLL, {})
 
 func play_new_round_hook(chain: ModLoaderHookChain):
     await chain.execute_next_async([])
-    for callback in CUE.MISC_EVENTS.ROUND_START_CALLBACKS:
-        callback.call()
+    CUE.call_event(CUE.Events.ROUND_START, {})
