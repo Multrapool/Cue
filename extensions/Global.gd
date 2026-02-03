@@ -2,9 +2,9 @@ extends "res://Global.gd"
 
 func Multrapool_Cue_InitMainMenu(scene:Node):
     var canvas = scene.get_node("CanvasLayer")
-    var version_number = preload("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
+    var version_number = load("res://mods-unpacked/Multrapool-Cue/version_number.tscn")\
         .instantiate()
-    var CUE = preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
+    var CUE = load("res://mods-unpacked/Multrapool-Cue/cue.gd")
     version_number.get_node("LabelT").text = "Cue Version " + \
         CUE.CUE_VERSION+" "+CUE.CUE_ERA
     
@@ -20,7 +20,7 @@ func Multrapool_Cue_InitMainMenu(scene:Node):
         top_left=scene.top_left,
         bottom_right=scene.bottom_right,
     }
-    scene.set_script(preload("res://mods-unpacked/Multrapool-Cue/extensions/main_menu.gd"))
+    scene.set_script(load("res://mods-unpacked/Multrapool-Cue/extensions/main_menu.gd"))
     scene.Multrapool_Cue_InheritVariables(old_vars)
     
 func _ready() -> void:

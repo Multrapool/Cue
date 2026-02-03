@@ -1,6 +1,6 @@
 extends Object
 
-var CUE = preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
+var CUE = load("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 # sad that i have to rewrite this but
 func run_event_on_ball(_chain: ModLoaderHookChain, event_name, ball, extra1 = null, extra2 = null, ball_item = null, do_override_level = false, override_level = 1):
