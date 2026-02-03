@@ -2,7 +2,7 @@ extends Node
 
 var mod_dir_path := ""
 
-var CUE := load("res://mods-unpacked/Multrapool-Cue/cue.gd")
+var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 func _init() -> void:
     CUE.CUE_VERSION = ModLoaderMod.get_mod_data(CUE.MOD_NAME).manifest.version_number
@@ -18,7 +18,7 @@ func _init() -> void:
     ModLoaderMod.add_translation(mod_dir_path.path_join("Multrapool.en.translation"))
     
     CUE._create_singletons(self)
-    
+
     ModLoaderLog.info("Initialized :3", CUE.MOD_NAME)
 
 func install_script_extensions() -> void:

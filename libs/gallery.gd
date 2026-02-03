@@ -7,8 +7,8 @@ var GALLERY_LOAD_CALLBACKS:Array[Callable] = []
 func gallery_load_callback(callback:Callable):
     GALLERY_LOAD_CALLBACKS.append(callback)
 
-func add_container_to_gallery(to_add:PanelContainer):
+func add_scene_to_gallery(to_add:Resource):
     gallery_load_callback(func(galleryNode:Node2D):
         galleryNode.get_node("TabManager/ShopBalls/ScrollContainer/MarginContainer/VBoxContainer/")\
-            .add_child(to_add))
+            .add_child(to_add.instantiate()))
         
