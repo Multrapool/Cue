@@ -2,7 +2,7 @@ class_name Multrapool_Cue
 
 static var MOD_NAME := "Multrapool-Cue" 
 static var CUE_VERSION := ""
-static var CUE_ERA := "Triangle"
+static var CUE_ERA := "Chalk"
 
 ### libs
 
