@@ -18,10 +18,10 @@ static func _create_singletons(holder:Node):
 ### take over
 
 
-static var virtual_files:= []
+static var _virtual_files:= []
 static var modded_balls:=[]
 
-static var global_thingy_bc_godot_is_silly:= []
+static var _global_thingy_bc_godot_is_silly:= []
 ## Registers this file into the vanilla game files so it can be found where its supposed to be[br][br]
 ##
 ## [param modName]: The name of this mod[br]
@@ -29,8 +29,8 @@ static var global_thingy_bc_godot_is_silly:= []
 static func take_over(modName:String, path:String):
     var to_take_over = load("res://mods-unpacked/"+modName+"/overwrites/"+path)
     to_take_over.take_over_path("res://"+path)
-    virtual_files.append("res://"+path)
-    global_thingy_bc_godot_is_silly.append(to_take_over)
+    _virtual_files.append("res://"+path)
+    _global_thingy_bc_godot_is_silly.append(to_take_over)
     
     if path.begins_with("data/balls_data/"):
         var resource = load("res://"+path)
@@ -39,7 +39,7 @@ static func take_over(modName:String, path:String):
     
 ### events
 
-class eventHolder:
+class _eventHolder:
     const BUFF_SELF = "BUFF"
     const BUY_ANY = "BUY-OTHER"
     const ENTER_SHOP = "ENTER-SHOP"
@@ -67,9 +67,9 @@ class eventHolder:
     const REROLL = "MULTRAPOOL_CUE_REROLL"
     const SPAWN_DROPLET = "MULTRAPOOL_SPAWN_DROPLET"
     const BUFF_ANY = "MULTRAPOOL_BUFF_ANY"
-static var Events = eventHolder.new()
+static var Events = _eventHolder.new()
 
-static var registeredBallEvents = {}
+static var _registeredBallEvents = {}
 ## Registers a callback to be run on some ball event[br][br]
 ##
 ## [param ball_id]: The id of the type of ball that should run this action[br]
@@ -77,9 +77,9 @@ static var registeredBallEvents = {}
 ## [param action]: A function that takes a [Ball], a dictionary of assorted values, and if it is the mixed side, and performs the event action[br]
 ## [param action] = func(ball:Ball, assorted:Dictionary, isMixedSide:bool)
 static func register_ball_event(ball_id:String, event:String, action:Callable):
-    if !registeredBallEvents.has(event):
-        registeredBallEvents[event] = {}
-    registeredBallEvents[event][ball_id] = action
+    if !_registeredBallEvents.has(event):
+        _registeredBallEvents[event] = {}
+    _registeredBallEvents[event][ball_id] = action
     
 ## Gets the event for a ball[br][br]
 ##
@@ -87,8 +87,8 @@ static func register_ball_event(ball_id:String, event:String, action:Callable):
 ## [param event]: A member of [ballEventHolder] (or a string, if you're using a custom event)
 ## Returns the action that this ball will run, or null
 static func get_ball_event(ball_id:String, event:String) -> Callable:
-    if registeredBallEvents.has(event) and registeredBallEvents[event].has(ball_id):
-        return registeredBallEvents[event][ball_id]
+    if _registeredBallEvents.has(event) and _registeredBallEvents[event].has(ball_id):
+        return _registeredBallEvents[event][ball_id]
     return func(_a,_b,_c):return
     
     
@@ -97,9 +97,9 @@ static func get_ball_event(ball_id:String, event:String) -> Callable:
 ## [param ball_id]: The id of the type of ball[br]
 ## [param event]: A member of [ballEventHolder] (or a string, if you're using a custom event)
 static func has_ball_event(ball_id:String, event:String) -> bool:
-    if registeredBallEvents[event] == null:
+    if _registeredBallEvents[event] == null:
         return false
-    return registeredBallEvents[event][ball_id] != null
+    return _registeredBallEvents[event][ball_id] != null
     
 static func call_ball_event(ball, event:String, additional:Dictionary):
     var real_ball_item
@@ -115,41 +115,41 @@ static func call_ball_event(ball, event:String, additional:Dictionary):
         get_ball_event(real_ball_item.mixed_data.id, event).call(ball, additional, true)
 
 
-static var registeredEvents = {}
+static var _registeredEvents = {}
 ## Registers a callback to be run on some event[br][br]
 ##
 ## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)[br]
 ## [param action]: A function that takes a dictionary of assorted values and performs the event action[br]
 ## [param action] = func(assorted:Dictionary)
 static func register_event(event:String, action:Callable):
-    if !registeredEvents.has(event):
-        registeredEvents[event] = []
-    registeredEvents[event].append(action)
+    if !_registeredEvents.has(event):
+        _registeredEvents[event] = []
+    _registeredEvents[event].append(action)
     
 static func call_event(event:String, additional:Dictionary):
-    if registeredEvents.has(event):
-        for callback in registeredEvents[event]:
+    if _registeredEvents.has(event):
+        for callback in _registeredEvents[event]:
             callback.call(additional)
             
 ### custom droplets
 
 
-static var last_used_droplet = load("res://droplet.gd").DROPLET_TYPE.size()-1
-static var droplet_data := {}
+static var _last_used_droplet = load("res://droplet.gd").DROPLET_TYPE.size()-1
+static var _droplet_data := {}
 static func register_droplet(init:Callable, 
         on_ball:Callable, 
         process:Callable, 
         remove:Callable) -> int:
-    last_used_droplet+=1
+    _last_used_droplet+=1
     
-    droplet_data[last_used_droplet] = {
+    _droplet_data[_last_used_droplet] = {
         init=init,
         on_ball=on_ball,
         process=process,
         remove=remove
     }
     
-    return last_used_droplet
+    return _last_used_droplet
 
 ### misc
 
@@ -171,3 +171,5 @@ static var initial_masses_and_scales:={}
 ## they will be set to their default values (NORMAL, 1, 1)
 static func initial_mass_scale_callback(ball_id:String, callback:Callable):
     initial_masses_and_scales[ball_id] = callback
+
+static var _events_to_suppress:={}

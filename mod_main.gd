@@ -28,6 +28,7 @@ func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
     ModLoaderMod.add_hook(play_new_round_hook, "res://Game.gd", "play_new_round")
+    ModLoaderMod.add_hook(ball_pocketed_hook, "res://Game.gd", "ball_pocketed")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
     ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
     ModLoaderMod.install_script_hooks("res://ball.gd", "res://mods-unpacked/Multrapool-Cue/extensions/ball.gd")
@@ -41,7 +42,7 @@ func _ready() -> void:
 func get_all_files_hook(chain: ModLoaderHookChain, path: String, extension: String) -> Array[String]:
     var orig = chain.execute_next([path, extension])
     
-    for file_path in CUE.virtual_files:
+    for file_path in CUE._virtual_files:
         if file_path.begins_with(path):
             orig.append(file_path)
     
@@ -57,3 +58,7 @@ func play_new_round_hook(chain: ModLoaderHookChain):
     await chain.execute_next_async([])
     CUE.call_event(CUE.Events.ROUND_START, {})
     
+func ball_pocketed_hook(chain:ModLoaderHookChain, ball_pocketed, ball_item, pocket, pocketed_score: int):
+    CUE._events_to_suppress["POCKET-ANOTHER"]="add_pocket_to_pocketed_any"
+    chain.execute_next([ball_pocketed, ball_item, pocket, pocketed_score])
+    CUE._events_to_suppress.erase("POCKET-ANOTHER")

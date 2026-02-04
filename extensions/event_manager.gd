@@ -5,17 +5,26 @@ var CUE = load("res://mods-unpacked/Multrapool-Cue/cue.gd")
 var Multrapool_which_time:=0
 
 func run_event(chain: ModLoaderHookChain, event_name, extra1 = null, extra2 = null, delay_per_ball = 0):
+    if CUE._events_to_suppress.has(event_name):
+        return
+    
     chain.execute_next([event_name, extra1, extra2, delay_per_ball])
     
     CUE.call_event(event_name, {extra1=extra1, extra2=extra2})
     
 func run_event_shop(chain: ModLoaderHookChain, event_name, extra1 = null):
+    if CUE._events_to_suppress.has(event_name):
+        return
+        
     chain.execute_next([event_name, extra1])
     
     CUE.call_event(event_name, {extra1=extra1})
 
 # sad that i have to rewrite this but
 func run_event_on_ball(_chain: ModLoaderHookChain, event_name, ball, extra1 = null, extra2 = null, ball_item = null, do_override_level = false, override_level = 1):
+    if CUE._events_to_suppress.has(event_name):
+        return
+        
     if Global.gameManager.game_broken():
         return
 
@@ -105,6 +114,9 @@ func run_event_on_ball(_chain: ModLoaderHookChain, event_name, ball, extra1 = nu
                     extra1=extra1, extra2=extra2})
             
 func run_event_on_shop_ball(chain: ModLoaderHookChain, event_name, shop_ball, extra1 = null):
+    if CUE._events_to_suppress.has(event_name):
+        return
+        
     chain.execute_next([event_name, shop_ball, extra1])
     Multrapool_which_time=0
     
@@ -193,6 +205,11 @@ func run_effects_hit(chain: ModLoaderHookChain, ball, ball_item, other_ball: Bal
         {source=ball_item, effect_level=level, other_ball=other_ball})
 
 func run_effects_pocket(chain: ModLoaderHookChain, ball, ball_item: BallItem, pocket, level, effect_position):
+    if CUE._events_to_suppress.has("POCKET-ANOTHER") and\
+        CUE._events_to_suppress["POCKET-ANOTHER"] == "add_pocket_to_pocketed_any":
+        CUE._events_to_suppress.erase("POCKET-ANOTHER")
+        Global.eventManager.run_event("POCKET-ANOTHER", ball, pocket)
+    
     chain.execute_next([ball, ball_item, pocket, level, effect_position])
     CUE.call_ball_event(ball, CUE.Events.POCKET_SELF, 
         {source=ball_item, effect_level=level, pocket=pocket, effect_position=effect_position})
