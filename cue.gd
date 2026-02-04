@@ -67,6 +67,8 @@ class _eventHolder:
     const REROLL = "MULTRAPOOL_CUE_REROLL"
     const SPAWN_DROPLET = "MULTRAPOOL_SPAWN_DROPLET"
     const BUFF_ANY = "MULTRAPOOL_BUFF_ANY"
+    const BEFORE_PROCESS = "MULTRAPOOL_BEFORE_PROCESS"
+    const AFTER_PROCESS = "MULTRAPOOL_AFTER_PROCESS"
 static var Events = _eventHolder.new()
 
 static var _registeredBallEvents = {}
