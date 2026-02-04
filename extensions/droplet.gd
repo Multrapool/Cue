@@ -9,6 +9,7 @@ func _ready(chain:ModLoaderHookChain):
     
 func set_type(chain:ModLoaderHookChain, type):
     chain.execute_next([clamp(type,0,Droplet.DROPLET_TYPE.size()-1)])
+    chain.reference_object.droplet_type = type
     
     if CUE.droplet_data.has(type):
         CUE.droplet_data[type].init.call(chain.reference_object)
@@ -16,7 +17,7 @@ func set_type(chain:ModLoaderHookChain, type):
 func _on_area_2d_body_entered(chain:ModLoaderHookChain, body:Node2D):
     if CUE.droplet_data.has(chain.reference_object.droplet_type) and body is Ball:
         CUE.droplet_data[chain.reference_object.droplet_type].on_ball.call(chain.reference_object, body)
-
+    
     chain.execute_next([body])
     
 func _process(chain:ModLoaderHookChain, delta:float):
