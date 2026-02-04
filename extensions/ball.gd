@@ -1,16 +1,21 @@
 extends Object
 
-var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
+var CUE := load("res://mods-unpacked/Multrapool-Cue/cue.gd")
 
 
 func _process(chain:ModLoaderHookChain, delta:float):
-    var current_balls = Global.gameManager.balls.duplicate()
-    for ball in current_balls:
-        CUE.call_ball_event(ball, CUE.Events.BEFORE_PROCESS, {delta=delta})
+    var should_event = Global.gameManager != null
+    
+    var current_balls:=[]
+    if should_event:
+        current_balls = Global.gameManager.balls.duplicate()
+        for ball in current_balls:
+            CUE.call_ball_event(ball, CUE.Events.BEFORE_PROCESS, {delta=delta})
     chain.execute_next([delta])
-    current_balls = Global.gameManager.balls.duplicate()
-    for ball in current_balls:
-        CUE.call_ball_event(ball, CUE.Events.AFTER_PROCESS, {delta=delta})
+    if should_event:
+        current_balls = Global.gameManager.balls.duplicate()
+        for ball in current_balls:
+            CUE.call_ball_event(ball, CUE.Events.AFTER_PROCESS, {delta=delta})
 
 func update_initial_weight(chain:ModLoaderHookChain):
     chain.execute_next([])
