@@ -5,8 +5,7 @@ var CUE := preload("res://mods-unpacked/Multrapool-Cue/cue.gd")
 func _ready(chain:ModLoaderHookChain):
     chain.execute_next([])
     
-    Global.eventManager.run_event(CUE.BallEvents.SPAWN_DROPLET, chain.reference_object) 
-    CUE.call_event(CUE.Events.SPAWN_DROPLET, {droplet=chain.reference_object})
+    Global.eventManager.run_event(CUE.Events.SPAWN_DROPLET, chain.reference_object) 
     
 func set_type(chain:ModLoaderHookChain, type):
     chain.execute_next([type])

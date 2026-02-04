@@ -51,8 +51,7 @@ func on_reroll_hook(chain: ModLoaderHookChain) -> void:
     var old_rerolled = Global.shopManager.times_rerolled
     chain.execute_next([])
     if old_rerolled+1 == Global.shopManager.times_rerolled:
-        Global.eventManager.run_event_shop(CUE.BallEvents.REROLL) 
-        CUE.call_event(CUE.Events.REROLL, {})
+        Global.eventManager.run_event_shop(CUE.Events.REROLL) 
 
 func play_new_round_hook(chain: ModLoaderHookChain):
     await chain.execute_next_async([])

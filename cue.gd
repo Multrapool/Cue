@@ -39,9 +39,8 @@ static func take_over(modName:String, path:String):
     
 ### events
 
-
-class ballEventHolder:  
-    const BUFF = "BUFF"
+class eventHolder:
+    const BUFF_SELF = "BUFF"
     const BUY_ANY = "BUY-OTHER"
     const ENTER_SHOP = "ENTER-SHOP"
     const GAIN_MONEY = "GAIN-MONEY"
@@ -55,41 +54,15 @@ class ballEventHolder:
     const ROUND_START = "ROUND-START"
     const GAIN_SCORE = "SCORE"
     const SELF_UPGRADE = "SCORE-CHANGE"
-    const SELF_SCORED = "SCORE-SELF"
     const SELL_ANY = "SELL"
-    const SELL_SELF = "SELL-SELF"
     const SHOOT = "SHOOT"
     const SPAWN_ANY = "SPAWN-ANOTHER"
-    const SPAWN_SELF = "SPAWN"
     const TRANSFORM_ANY = "TRANSFORM-ANOTHER"
-    const TRANSFORM_SELF = "TRANSFORM"
     const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
     
     const REROLL = "MULTRAPOOL_CUE_REROLL"
     const SPAWN_DROPLET = "MULTRAPOOL_SPAWN_DROPLET"
-class eventHolder:
-    const BUFF = "BUFF"
-    const BUY_BALL = "BUY_OTHER"
-    const ENTER_SHOP = "ENTER_SHOP"
-    const GAIN_MONEY = "GAIN_MONEY"
-    const HIT_BALL = "HIT_BAll"
-    const HIT_WALL = "HIT_WALL"
-    const PICKUP_DROPLET = "PICKUP_DROPLET"
-    const POCKET_BALL="POCKET_BALL"
-    const REACH_SCORE = "REACH_SCORE"
-    const ROUND_END = "ROUND_END"
-    const ROUND_START = "ROUND_START"
-    const GAIN_SCORE = "GAIN_SCORE"
-    const BALL_UPGRADE = "BALL_UPGRADE"
-    const SELL_BALL = "SELL"
-    const SHOOT = "SHOOT"
-    const SPAWN_BALL = "SPAWN_BALL"
-    const TRANSFORM_BALL = "TRANSFORM-ANOTHER"
-    const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
-    
-    const REROLL = "REROLL"
-    const SPAWN_DROPLET = "SPAWN_DROPLET"
-static var BallEvents = ballEventHolder.new()
+    const BUFF_ANY = "MULTRAPOOL_BUFF_ANY"
 static var Events = eventHolder.new()
 
 static var registeredBallEvents = {}
