@@ -30,6 +30,7 @@ func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(play_new_round_hook, "res://Game.gd", "play_new_round")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
     ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
+    ModLoaderMod.install_script_hooks("res://ball.gd", "res://mods-unpacked/Multrapool-Cue/extensions/ball.gd")
 
 func _ready() -> void:
     ModLoaderLog.info("Ready", CUE.MOD_NAME)
@@ -56,3 +57,4 @@ func on_reroll_hook(chain: ModLoaderHookChain) -> void:
 func play_new_round_hook(chain: ModLoaderHookChain):
     await chain.execute_next_async([])
     CUE.call_event(CUE.Events.ROUND_START, {})
+    

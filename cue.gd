@@ -18,9 +18,10 @@ static func _create_singletons(holder:Node):
 ### take over
 
 
-static var virtual_files:Array = []
+static var virtual_files:= []
+static var modded_balls:=[]
 
-static var global_thingy_bc_godot_is_silly: Array = []
+static var global_thingy_bc_godot_is_silly:= []
 ## Registers this file into the vanilla game files so it can be found where its supposed to be[br][br]
 ##
 ## [param modName]: The name of this mod[br]
@@ -30,6 +31,11 @@ static func take_over(modName:String, path:String):
     to_take_over.take_over_path("res://"+path)
     virtual_files.append("res://"+path)
     global_thingy_bc_godot_is_silly.append(to_take_over)
+    
+    if path.begins_with("data/balls_data/"):
+        var resource = load("res://"+path)
+        if resource is BallResource:
+            modded_balls.append(resource.id)
     
 ### events
 
@@ -167,3 +173,24 @@ static func register_droplet(init:Callable,
     }
     
     return last_used_droplet
+
+### misc
+
+
+static var initial_weights := {
+    SEAL=Ball.WEIGHT_LEVEL.HEAVY,
+    FISH=Ball.WEIGHT_LEVEL.LIGHT,
+    JUPITER=Ball.WEIGHT_LEVEL.HEAVY,
+    PLUTO=Ball.WEIGHT_LEVEL.LIGHT,
+}
+static func set_initial_weight(ball_id:String, weight:Ball.WEIGHT_LEVEL):
+    initial_weights[ball_id]=weight
+    
+static var initial_masses_and_scales:={}
+## [param callback]: func(otherball_if_mixed:[BallResource]) -> [br]
+## { weight_state:[enum Ball.WEIGHT_STATE], mass:[float], scale:[float] }[br][br]
+##
+## If any of the values of the dictionary are null,
+## they will be set to their default values (NORMAL, 1, 1)
+static func initial_mass_scale_callback(ball_id:String, callback:Callable):
+    initial_masses_and_scales[ball_id] = callback
