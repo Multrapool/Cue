@@ -27,7 +27,6 @@ func install_script_extensions() -> void:
 func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
-    ModLoaderMod.add_hook(play_new_round_hook, "res://Game.gd", "play_new_round")
     ModLoaderMod.add_hook(ball_pocketed_hook, "res://Game.gd", "ball_pocketed")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
     ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
@@ -53,10 +52,6 @@ func on_reroll_hook(chain: ModLoaderHookChain) -> void:
     chain.execute_next([])
     if old_rerolled+1 == Global.shopManager.times_rerolled:
         Global.eventManager.run_event_shop(CUE.Events.REROLL) 
-
-func play_new_round_hook(chain: ModLoaderHookChain):
-    await chain.execute_next_async([])
-    CUE.call_event(CUE.Events.ROUND_START, {})
     
 func ball_pocketed_hook(chain:ModLoaderHookChain, ball_pocketed, ball_item, pocket, pocketed_score: int):
     CUE._events_to_suppress["POCKET-ANOTHER"]="add_pocket_to_pocketed_any"

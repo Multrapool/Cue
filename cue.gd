@@ -69,6 +69,8 @@ class _eventHolder:
     const BUFF_ANY = "MULTRAPOOL_BUFF_ANY"
     const BEFORE_PROCESS = "MULTRAPOOL_BEFORE_PROCESS"
     const AFTER_PROCESS = "MULTRAPOOL_AFTER_PROCESS"
+    const BEFORE_PHYS_PROCESS = "MULTRAPOOL_BEFORE_PHYS_PROCESS"
+    const AFTER_PHYS_PROCESS = "MULTRAPOOL_AFTER_PHYS_PROCESS"
 static var Events = _eventHolder.new()
 
 static var _registeredBallEvents = {}
@@ -174,4 +176,5 @@ static var initial_masses_and_scales:={}
 static func initial_mass_scale_callback(ball_id:String, callback:Callable):
     initial_masses_and_scales[ball_id] = callback
 
+# necessary
 static var _events_to_suppress:={}

@@ -221,6 +221,7 @@ func run_effects_spawn(chain: ModLoaderHookChain, ball, ball_item, mirror = fals
 
 func run_effects_start_round(chain: ModLoaderHookChain, ball, ball_item, level = 1):
     chain.execute_next([ball, ball_item, level])
+    CUE.call_event(CUE.Events.ROUND_START, {})
     CUE.call_ball_event(ball, CUE.Events.ROUND_START, 
         {source=ball_item, effect_level=level})
 
