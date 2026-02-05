@@ -12,10 +12,9 @@ func add_scene_to_gallery(to_add:Resource):
         galleryNode.get_node("TabManager/ShopBalls/ScrollContainer/MarginContainer/VBoxContainer/")\
             .add_child(to_add.instantiate()))
 func add_set_to_gallery(to_add:BallSet):
-    var panel = load("res://effects/ui/gallery_set_display_panel.tscn").instantiate()
-    panel.get_node("Control/GallerySetDisplay").ball_set = to_add
-    
     gallery_load_callback(func(galleryNode:Node2D):
+        var panel = load("res://effects/ui/gallery_set_display_panel.tscn").instantiate()
+        panel.get_node("Control/GallerySetDisplay").ball_set = to_add
         galleryNode.get_node("TabManager/ShopBalls/ScrollContainer/MarginContainer/VBoxContainer/")\
             .add_child(panel))
         
