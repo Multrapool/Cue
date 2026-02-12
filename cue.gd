@@ -111,6 +111,8 @@ static func call_ball_event(ball, event:String, additional:Dictionary):
         real_ball_item=ball.ball_item_og
     if ball is ShopBall:
         real_ball_item=ball.ball_item
+    if ball is PassiveCube:
+        real_ball_item=ball.ball_item
         
     assert(real_ball_item != null)
     
