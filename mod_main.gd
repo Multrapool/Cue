@@ -28,7 +28,6 @@ func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
     ModLoaderMod.add_hook(ball_pocketed_hook, "res://Game.gd", "ball_pocketed")
-    ModLoaderMod.add_hook(invalid_save_hook, "res://singletons/save_manager.gd", "load_run_state")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
     ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
     ModLoaderMod.install_script_hooks("res://ball.gd", "res://mods-unpacked/Multrapool-Cue/extensions/ball.gd")
@@ -58,9 +57,3 @@ func ball_pocketed_hook(chain:ModLoaderHookChain, ball_pocketed, ball_item, pock
     CUE._events_to_suppress["POCKET-ANOTHER"]="add_pocket_to_pocketed_any"
     chain.execute_next([ball_pocketed, ball_item, pocket, pocketed_score])
     CUE._events_to_suppress.erase("POCKET-ANOTHER")
-
-func invalid_save_hook(chain:ModLoaderHookChain):
-    if not FileAccess.file_exists("user://run_data.tres") or ResourceLoader.load("user://run_data.tres") == null:
-        DirAccess.remove_absolute("user://run_data.tres")
-    chain.execute_next([])
-    
