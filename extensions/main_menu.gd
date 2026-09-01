@@ -14,6 +14,8 @@ func spawn_ball():
         add_child(ball)
 
         var ball_data = BallDatabase.get_ball_by_id("MULTRAPOOL_LOGO")
+        for key in BallDatabase.plain_ball_ids:
+            print(key)
 
         var ball_item = BallItem.new()
         ball_item.data = ball_data

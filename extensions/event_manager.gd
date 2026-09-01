@@ -51,67 +51,67 @@ func run_event_on_ball(_chain: ModLoaderHookChain, event_name, ball, extra1 = nu
         if i > 0:
             await Global.eventManager.wait_step(0.1)
 
-        if event_name == "POCKET":
-            Global.eventManager.run_effects_pocket(ball, ball_item_effect_source, extra1, level, effect_position)
-            
-        elif event_name == "POCKET-ANOTHER":
-            Global.eventManager.run_effects_pocket_another(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "SPAWN":
-            Global.eventManager.run_effects_spawn(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "ROUND-START":
-            Global.eventManager.run_effects_start_round(ball, ball_item_effect_source, level)
-
-        elif event_name == "HIT":
-            Global.eventManager.run_effects_hit(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "HIT-WALL":
-            Global.eventManager.run_effects_hit_wall(ball, ball_item_effect_source, level)
-
-        elif event_name == "BUFF":
-            Global.eventManager.run_effects_buff(ball, ball_item_effect_source, extra1, extra2, level)
-
-        elif event_name == "SPAWN-ANOTHER":
-            Global.eventManager.run_effects_spawn_another(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "SCORE":
-            Global.eventManager.run_effects_score(ball, ball_item_effect_source, extra1, extra2, level)
-
-        elif event_name == "GAIN-MONEY":
-            Global.eventManager.run_effects_gain_money(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "ENTER-SHOP":
-            Global.eventManager.run_effects_enter_shop(ball, ball_item_effect_source, level)
-
-        elif event_name == "TRANSFORM":
-            Global.eventManager.run_effects_transform(ball, ball_item_effect_source, level)
-
-        elif event_name == "TRANSFORM-ANOTHER":
-            Global.eventManager.run_effects_transform_another(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "PICKUP-DROPLET":
-            Global.eventManager.run_effects_pickup_droplet(ball, ball_item_effect_source, level)
-
-        elif event_name == "SCORE-CHANGE":
-            Global.eventManager.run_effects_score_change(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "SHOOT":
-            Global.eventManager.run_effects_shoot(ball, ball_item_effect_source, extra1, level)
-
-        elif event_name == "REACH-SCORE":
-            Global.eventManager.run_effects_reach_score(ball, ball_item_effect_source, level)
-
-        elif event_name == "ROUND-END":
-            Global.eventManager.run_effects_round_end(ball, ball_item_effect_source, level)
-
-        elif event_name == "SCORE-SELF":#unused in vanilla
-            run_effects_self_scored(ball, ball_item_effect_source, level, extra1, extra2)
-            
-        else:
-            CUE.call_ball_event(ball, event_name,
-                {source=ball_item_effect_source, effect_level=level, position=effect_position,
-                    extra1=extra1, extra2=extra2})
+        #if event_name == "POCKET":
+            #Global.eventManager.run_effects_pocket(ball, ball_item_effect_source, extra1, level, effect_position)
+            #
+        #elif event_name == "POCKET-ANOTHER":
+            #Global.eventManager.run_effects_pocket_another(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "SPAWN":
+            #Global.eventManager.run_effects_spawn(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "ROUND-START":
+            #Global.eventManager.run_effects_start_round(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "HIT":
+            #Global.eventManager.run_effects_hit(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "HIT-WALL":
+            #Global.eventManager.run_effects_hit_wall(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "BUFF":
+            #Global.eventManager.run_effects_buff(ball, ball_item_effect_source, extra1, extra2, level)
+#
+        #elif event_name == "SPAWN-ANOTHER":
+            #Global.eventManager.run_effects_spawn_another(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "SCORE":
+            #Global.eventManager.run_effects_score(ball, ball_item_effect_source, extra1, extra2, level)
+#
+        #elif event_name == "GAIN-MONEY":
+            #Global.eventManager.run_effects_gain_money(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "ENTER-SHOP":
+            #Global.eventManager.run_effects_enter_shop(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "TRANSFORM":
+            #Global.eventManager.run_effects_transform(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "TRANSFORM-ANOTHER":
+            #Global.eventManager.run_effects_transform_another(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "PICKUP-DROPLET":
+            #Global.eventManager.run_effects_pickup_droplet(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "SCORE-CHANGE":
+            #Global.eventManager.run_effects_score_change(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "SHOOT":
+            #Global.eventManager.run_effects_shoot(ball, ball_item_effect_source, extra1, level)
+#
+        #elif event_name == "REACH-SCORE":
+            #Global.eventManager.run_effects_reach_score(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "ROUND-END":
+            #Global.eventManager.run_effects_round_end(ball, ball_item_effect_source, level)
+#
+        #elif event_name == "SCORE-SELF":#unused in vanilla
+            #run_effects_self_scored(ball, ball_item_effect_source, level, extra1, extra2)
+            #
+        #else:
+            #CUE.call_ball_event(ball, event_name,
+                #{source=ball_item_effect_source, effect_level=level, position=effect_position,
+                    #extra1=extra1, extra2=extra2})
             
 func run_event_on_shop_ball(chain: ModLoaderHookChain, event_name, shop_ball, extra1 = null):
     if CUE._events_to_suppress.has(event_name):

@@ -156,16 +156,6 @@ static func register_droplet(init:Callable,
     return _last_used_droplet
 
 ### misc
-
-
-static var initial_weights := {
-    SEAL=Ball.WEIGHT_LEVEL.HEAVY,
-    FISH=Ball.WEIGHT_LEVEL.LIGHT,
-    JUPITER=Ball.WEIGHT_LEVEL.HEAVY,
-    PLUTO=Ball.WEIGHT_LEVEL.LIGHT,
-}
-static func set_initial_weight(ball_id:String, weight:Ball.WEIGHT_LEVEL):
-    initial_weights[ball_id]=weight
     
 static var initial_masses_and_scales:={}
 ## [param callback]: func(otherball_if_mixed:[BallResource]) -> [br]

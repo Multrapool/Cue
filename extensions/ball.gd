@@ -31,8 +31,8 @@ func update_initial_weight(chain:ModLoaderHookChain):
         (chain.reference_object.ball_item.mixed_data != null and\
             CUE.modded_balls.has(chain.reference_object.ball_item.mixed_data.id)):
      
-        var weight1:Ball.WEIGHT_LEVEL = chain.reference_object.weight_state
-        var weight2:= Ball.WEIGHT_LEVEL.NORMAL
+        var weight1:BallItem.WEIGHT_LEVEL = chain.reference_object.weight_state
+        var weight2:= BallItem.WEIGHT_LEVEL.NORMAL
         if CUE.initial_weights.has(chain.reference_object.ball_item.data.id):
             weight1 = CUE.initial_weights[chain.reference_object.ball_item.data.id]
         if chain.reference_object.ball_item.mixed_data != null and CUE.initial_weights.has(chain.reference_object.ball_item.mixed_data.id):
@@ -40,9 +40,9 @@ func update_initial_weight(chain:ModLoaderHookChain):
             
         if weight1 == weight2:
             chain.reference_object.weight_state = weight1
-        elif weight1 == Ball.WEIGHT_LEVEL.NORMAL:
+        elif weight1 == BallItem.WEIGHT_LEVEL.NORMAL:
             chain.reference_object.weight_state = weight2
-        elif weight2 == Ball.WEIGHT_LEVEL.NORMAL:
+        elif weight2 == BallItem.WEIGHT_LEVEL.NORMAL:
             chain.reference_object.weight_state = weight1
             
 func update_weight(chain:ModLoaderHookChain):

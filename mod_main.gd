@@ -26,6 +26,7 @@ func install_script_extensions() -> void:
 
 func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
+    ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_imported_files_with_extension")
     ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
     ModLoaderMod.add_hook(ball_pocketed_hook, "res://Game.gd", "ball_pocketed")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
@@ -43,6 +44,7 @@ func get_all_files_hook(chain: ModLoaderHookChain, path: String, extension: Stri
     
     for file_path in CUE._virtual_files:
         if file_path.begins_with(path):
+            print("yay! ", file_path, " ", path)
             orig.append(file_path)
     
     return orig
