@@ -6,7 +6,6 @@ static var CUE_ERA := "Chalk"
 
 ### libs
 
-
 static var GALLERY
 static func _create_singletons(holder:Node):
     var sub_holder:Node = load("res://mods-unpacked/Multrapool-Cue/libs/lib_holder.tscn")\
@@ -16,7 +15,6 @@ static func _create_singletons(holder:Node):
     GALLERY=sub_holder.get_node("Multrapool_LibGallery")
     
 ### take over
-
 
 static var _virtual_files:= []
 static var modded_balls:=[]
@@ -40,37 +38,32 @@ static func take_over(modName:String, path:String):
 ### events
 
 class _eventHolder:
-    const BUFF_SELF = "BUFF"
-    const BUY_ANY = "BUY-OTHER"
-    const ENTER_SHOP = "ENTER-SHOP"
-    const GAIN_MONEY = "GAIN-MONEY"
-    const HIT_BALL = "HIT"
-    const HIT_WALL = "HIT-WALL"
-    const PICKUP_DROPLET = "PICKUP-DROPLET"
-    const POCKET_ANY = "POCKET-ANOTHER"
-    const POCKET_SELF = "POCKET"
-    const REACH_SCORE = "REACH-SCORE"
-    const ROUND_END = "ROUND-END"
-    const ROUND_START = "ROUND-START"
-    const GAIN_SCORE = "SCORE"
-    const SELF_UPGRADE = "SCORE-CHANGE"
-    const SELF_SCORED = "SCORE-SELF"
-    const SELL_ANY = "SELL"
-    const SELL_SELF = "SELL-SELF"
-    const SHOOT = "SHOOT"
-    const SPAWN_ANY = "SPAWN-ANOTHER"
-    const SPAWN_SELF = "SPAWN"
-    const TRANSFORM_ANY = "TRANSFORM-ANOTHER"
-    const TRANSFORM_SELF = "TRANSFORM-SELF"
-    const UPGRADE_BALL_IN_SHOP = "UPGRADE-SHOP-BALL"
+    const POCKET = 'POCKET'
+    const POCKET_ANOTHER = &"POCKET-ANOTHER" 
+    const SPAWN = 'SPAWN'
+    const SPAWN_ANOTHER = &"SPAWN-ANOTHER" 
+    const ROUND_START = &"ROUND-START" 
+    const HIT = &"HIT" 
+    const HIT_WALL = &"HIT-WALL" 
+    const SCORE = &"SCORE" 
+    const REACH_SCORE = &"REACH-SCORE" 
+    const SCORE_CHANGE = &"SCORE-CHANGE" 
+    const ROUND_END = &"ROUND-END" 
+    const MAX_ROLL = &"MAX-ROLL" 
+    const TRANSFORM = &"TRANSFORM" 
+    const TRANSFORM_ANOTHER = &"TRANSFORM-ANOTHER" 
+    const PICKUP_DROPLET = &"PICKUP-DROPLET" 
+    const SHOOT = &"SHOOT" 
+    const ENTER_SHOP = &"ENTER-SHOP" 
+    const UPGRADE_BALL = &"UPGRADE-BALL" 
+    const SELL_SELF = &"SELL-SELF" 
+    const SELL_ANOTHER = &"SELL-ANOTHER" 
+    const REROLL_SHOP = &"REROLL-SHOP" 
+    const BUY = &"BUY" 
+    const BUY_ANOTHER = &"BUY-ANOTHER" 
+    const BUFF = &"BUFF"
     
-    const REROLL = "MULTRAPOOL_CUE_REROLL"
-    const SPAWN_DROPLET = "MULTRAPOOL_SPAWN_DROPLET"
-    const BUFF_ANY = "MULTRAPOOL_BUFF_ANY"
-    const BEFORE_PROCESS = "MULTRAPOOL_BEFORE_PROCESS"
-    const AFTER_PROCESS = "MULTRAPOOL_AFTER_PROCESS"
-    const BEFORE_PHYS_PROCESS = "MULTRAPOOL_BEFORE_PHYS_PROCESS"
-    const AFTER_PHYS_PROCESS = "MULTRAPOOL_AFTER_PHYS_PROCESS"
+    const SPAWN_DROPLET  = "Multrapool-SPAWN_DROPLET"
 static var Events = _eventHolder.new()
 
 static var _registeredBallEvents = {}
@@ -84,6 +77,13 @@ static func register_ball_event(ball_id:String, event:String, action:Callable):
     if !_registeredBallEvents.has(event):
         _registeredBallEvents[event] = {}
     _registeredBallEvents[event][ball_id] = action
+    
+    if event != "SPAWN" and event != "POCKET":
+        Global.eventManager.HARDCODED_EVENT_LISTENERS[event].append(ball_id)
+    elif event == "SPAWN":
+        Global.eventManager.SPAWN_EFFECTS.set(ball_id,"")
+    else:
+        Global.eventManager.POCKET_EFFECTS.set(ball_id,"")
     
 ## Gets the event for a ball[br][br]
 ##
@@ -120,11 +120,11 @@ static func call_ball_event(ball, event:String, additional:Dictionary):
 
 
 static var _registeredEvents = {}
-## Registers a callback to be run on some event[br][br]
-##
-## [param event]: A member of [eventHolder] (or a string, if you're using a custom event)[br]
-## [param action]: A function that takes a dictionary of assorted values and performs the event action[br]
-## [param action] = func(assorted:Dictionary)
+### Registers a callback to be run on some event[br][br]
+###
+### [param event]: A member of [eventHolder] (or a string, if you're using a custom event)[br]
+### [param action]: A function that takes a dictionary of assorted values and performs the event action[br]
+### [param action] = func(assorted:Dictionary)
 static func register_event(event:String, action:Callable):
     if !_registeredEvents.has(event):
         _registeredEvents[event] = []
@@ -136,7 +136,6 @@ static func call_event(event:String, additional:Dictionary):
             callback.call(additional)
             
 ### custom droplets
-
 
 static var _last_used_droplet = load("res://droplet.gd").DROPLET_TYPE.size()-1
 static var _droplet_data := {}
@@ -158,13 +157,10 @@ static func register_droplet(init:Callable,
 ### misc
     
 static var initial_masses_and_scales:={}
-## [param callback]: func(otherball_if_mixed:[BallResource]) -> [br]
-## { weight_state:[enum Ball.WEIGHT_STATE], mass:[float], scale:[float] }[br][br]
-##
-## If any of the values of the dictionary are null,
-## they will be set to their default values (NORMAL, 1, 1)
+### [param callback]: func(otherball_if_mixed:[BallResource]) -> [br]
+### { weight_state:[enum Ball.WEIGHT_STATE], mass:[float], scale:[float] }[br][br]
+###
+### If any of the values of the dictionary are null,
+### they will be set to their default values (NORMAL, 1, 1)
 static func initial_mass_scale_callback(ball_id:String, callback:Callable):
     initial_masses_and_scales[ball_id] = callback
-
-# necessary
-static var _events_to_suppress:={}

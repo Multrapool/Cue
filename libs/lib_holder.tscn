@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://27s4lyqqirc8"]
+[gd_scene format=3 uid="uid://27s4lyqqirc8"]
 
 [ext_resource type="Script" uid="uid://c3vvwloyea8bd" path="res://mods-unpacked/Multrapool-Cue/libs/gallery.gd" id="1_ck4mh"]
 
-[node name="LibHolder" type="Node"]
+[node name="LibHolder" type="Node" unique_id=1695042602]
 
-[node name="Multrapool_LibGallery" type="Node" parent="."]
+[node name="Multrapool_LibGallery" type="Node" parent="." unique_id=1661197372]
 script = ExtResource("1_ck4mh")
 metadata/_custom_type_script = "uid://c3vvwloyea8bd"

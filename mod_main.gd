@@ -27,15 +27,15 @@ func install_script_extensions() -> void:
 func install_script_hook_files() -> void:
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_files_with_extension")
     ModLoaderMod.add_hook(get_all_files_hook, "res://utils/utils.gd", "get_all_imported_files_with_extension")
-    ModLoaderMod.add_hook(on_reroll_hook, "res://ui/shop.gd", "_on_reroll_button_pressed")
-    ModLoaderMod.add_hook(ball_pocketed_hook, "res://Game.gd", "ball_pocketed")
     ModLoaderMod.install_script_hooks("res://event_manager.gd", "res://mods-unpacked/Multrapool-Cue/extensions/event_manager.gd")
     ModLoaderMod.install_script_hooks("res://droplet.gd", "res://mods-unpacked/Multrapool-Cue/extensions/droplet.gd")
-    ModLoaderMod.install_script_hooks("res://ball.gd", "res://mods-unpacked/Multrapool-Cue/extensions/ball.gd")
+    #ModLoaderMod.install_script_hooks("res://ball.gd", "res://mods-unpacked/Multrapool-Cue/extensions/ball.gd")
 
 func _ready() -> void:
     ModLoaderLog.info("Ready", CUE.MOD_NAME)
     #ModLoaderLog.info("Translation Demo: " + tr("MODNAME_READY_TEXT"), LOG_NAME)
+    
+    
 
 ###
 
@@ -44,18 +44,6 @@ func get_all_files_hook(chain: ModLoaderHookChain, path: String, extension: Stri
     
     for file_path in CUE._virtual_files:
         if file_path.begins_with(path):
-            print("yay! ", file_path, " ", path)
             orig.append(file_path)
     
     return orig
-    
-func on_reroll_hook(chain: ModLoaderHookChain) -> void:
-    var old_rerolled = Global.shopManager.times_rerolled
-    chain.execute_next([])
-    if old_rerolled+1 == Global.shopManager.times_rerolled:
-        Global.eventManager.run_event_shop(CUE.Events.REROLL) 
-    
-func ball_pocketed_hook(chain:ModLoaderHookChain, ball_pocketed, ball_item, pocket, pocketed_score: int):
-    CUE._events_to_suppress["POCKET-ANOTHER"]="add_pocket_to_pocketed_any"
-    chain.execute_next([ball_pocketed, ball_item, pocket, pocketed_score])
-    CUE._events_to_suppress.erase("POCKET-ANOTHER")
